@@ -1,0 +1,13 @@
+# Archivos de la base de datos (aunque es pequeño, es buena práctica)
+*.db
+*.sqlite
+proyecto_datos.db
+
+# Archivos de Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints
+
+# Entornos virtuales
+venv/
+.env
