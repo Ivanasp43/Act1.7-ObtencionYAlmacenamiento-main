@@ -202,18 +202,51 @@ python main.py
 
 ---
 
+# 🚀 Fase 2: Procesamiento Big Data y Análisis Visual
+
+En esta segunda etapa, hemos evolucionado el sistema hacia un entorno de **Big Data**, migrando el procesamiento de datos a **Polars** para ganar eficiencia y generando una capa de visualización interactiva.
+
+## 🛠️ Nuevas Tecnologías Implementadas
+* **Polars**: Motor de procesamiento de datos ultra rápido escrito en Rust, utilizado para el manejo de grandes volúmenes de datos mediante ejecución paralela.
+* **Plotly**: Librería para la creación de gráficos interactivos que permiten una exploración dinámica de los indicadores.
+* **ConnectorX**: Motor de alta velocidad para la extracción de datos desde SQLite hacia dataframes de Polars.
+
+## 📊 Pipeline de Análisis Big Data (`analisis_bigdata2.py`)
+
+El nuevo script implementa un flujo avanzado de datos:
+
+1.  **Carga Optimizada**: Extracción de las tablas de hechos (`T_precios`, `T_salarios`, `T_empleo`) unificando dimensiones mediante SQL JOINs directos en la carga.
+2.  **Transformación y Limpieza**:
+    * Conversión de tipos de datos y manejo de valores nulos mediante expresiones vectorizadas de Polars.
+    * **Cruce de Indicadores (Joins)**: Unión de la tabla de IPC con la de Salarios para permitir el cálculo de ratios en la misma serie temporal.
+3.  **Columnas Calculadas (Ingeniería de Características)**:
+    * **Ratio de Poder Adquisitivo**: Cálculo del índice $Salario / IPC$ para medir la ganancia o pérdida de valor real de los sueldos.
+
+## 📂 Arquitectura de Salida (Capa Oro)
+Los datos procesados se exportan a la carpeta `data_output/` en dos formatos:
+* **CSV**: Para interoperabilidad tradicional.
+* **Parquet**: Formato columnar optimizado para Big Data que reduce el espacio en disco y acelera las lecturas futuras.
+
+## 📈 Visualizaciones e Insights
+Se han generado los siguientes informes interactivos (disponibles en la carpeta `visualizaciones/`):
+* **Evolución del IPC**: Gráfico de líneas que muestra la tendencia inflacionaria.
+* **Correlación Paro/Salario**: Scatter plot para analizar si existe una relación inversa entre la tasa de desempleo y la remuneración por sector.
+* **Poder Adquisitivo Facetado**: Comparativa visual segmentada por sexo para detectar brechas de género en el poder de compra real.
+
+---
+
+## 🏗️ Tareas Pendientes (Próximos Pasos)
+* **[PENDIENTE]**: **Análisis de Resultados**: Redacción de las conclusiones extraídas tras observar los gráficos generados (ej. ¿Qué sector ha perdido más poder adquisitivo?).
+* **[PENDIENTE]**: **Benchmarking de Rendimiento**: Comparativa opcional de tiempos de ejecución entre los procesos realizados con Polars frente a métodos tradicionales.
+
+
+
 ## 🤝 Colaboradores
 
 * Alejandro Bernabé Guerrero -> https://github.com/Alebernabe5
-* Belén Márquez López -> https://github.com/belenmrqz
 * Ivana Sánchez Pérez -> https://github.com/Ivanasp43
-* Paula Sánchez Vélez -> https://github.com/paulaschez
 
-## ▶️ Próximos Pasos
 
-- Realizar pruebas del proceso ETL para verificar la correcta extracción, transformación y carga de los datos.
-- Comenzar el análisis exploratorio de los indicadores económicos.
-- Generar visualizaciones y comparar la evolución del poder adquisitivo.
 
 
 
