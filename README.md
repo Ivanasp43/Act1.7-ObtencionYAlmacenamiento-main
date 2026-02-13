@@ -228,10 +228,7 @@ Los datos procesados se exportan a la carpeta `data_output/` en dos formatos:
 * **Parquet**: Formato columnar optimizado para Big Data que reduce el espacio en disco y acelera las lecturas futuras.
 
 ## 📈 Visualizaciones e Insights
-Se han generado los siguientes informes interactivos (disponibles en la carpeta `visualizaciones/`):
-* **Evolución del IPC**: Gráfico de líneas que muestra la tendencia inflacionaria.
-* **Correlación Paro/Salario**: Scatter plot para analizar si existe una relación inversa entre la tasa de desempleo y la remuneración por sector.
-* **Poder Adquisitivo Facetado**: Comparativa visual segmentada por sexo para detectar brechas de género en el poder de compra real.
+Se han generado los siguientes informes interactivos
 
 ---
 
