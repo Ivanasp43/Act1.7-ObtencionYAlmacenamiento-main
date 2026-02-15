@@ -257,6 +257,16 @@ Tras la ejecución del análisis, se generan datasets finales en la carpeta data
    - Relacion_Paro_Salarios.csv: Dataset cruzado para análisis de mercado laboral
    - .Evolucion_IPC_Nacional.parquet: Exportación en formato de columnas optimizado para entornos de alto rendimiento.
 
+## 🚀 Ejercicios Extras
+
+Los ejercicios complementarios se encuentran organizados de la siguiente manera:
+
+* **Rama:** `FormatosBigDataParquet`
+* **Commits clave:**
+    * `c8090a5`: Solucion Parquet
+    * `3c29d79`: Implementación de Polar VS Pandas.
+    * `2070fb1`: Implementación de dashboard.
+
 ## 🤝 Colaboradores
 
 * Alejandro Bernabé Guerrero -> https://github.com/Alebernabe5
