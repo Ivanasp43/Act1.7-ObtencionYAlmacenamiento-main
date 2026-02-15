@@ -216,7 +216,7 @@ Para ejecutar el análisis de Big Data desde cero y evitar errores de dependenci
 1.Crear y activar el entorno virtual:
 PowerShell
 
-```powershell
+```bash
 python -m venv .venv
 .\.venv\Scripts\activate
 ```
@@ -225,14 +225,14 @@ Nota: Si PowerShell bloquea el script de activación, ejecuta: Set-ExecutionPoli
 
 2.Instalar el Stack de Big Data:
 
-```powershell
+```bash
 pip install polars plotly pyarrow pandas numpy
 ```
 
 3.Ejecutar el motor de análisis:
 
 
-```powershell
+```bash
  python analisis_bigdata.py 
 ```
 
