@@ -1,6 +1,7 @@
 import polars as pl
 import plotly.express as px
 import os
+import sqlite3
 
 # colores
 rojo = '\033[91m'
@@ -21,6 +22,9 @@ os.makedirs(VIS_DIR, exist_ok=True) #crea la carpeta de visualizaciones automát
 def cargar_datos():
     print(f"\n{amarillo}1. Conectando a la base de datos con Polars...{reset}")
     
+    # Creamos la conexión física con sqlite3 para evitar el error de URI
+    conn = sqlite3.connect(DB_PATH)
+
     # Query para Precios (IPC/IPV)
     query_precios = """
     SELECT p.valor AS valor_ipc, p.categoria_gasto, t.fecha_iso, i.nombre as indicador
@@ -45,10 +49,11 @@ def cargar_datos():
     JOIN tbl_indicador i ON i.id_indicador = e.id_indicador
     """
     
-    df_precios = pl.read_database(query=query_precios, connection=URI)
-    df_salarios = pl.read_database(query=query_salarios, connection=URI)
-    df_empleo = pl.read_database(query=query_empleo, connection=URI)
+    df_precios = pl.read_database(query=query_precios, connection=conn)
+    df_salarios = pl.read_database(query=query_salarios, connection=conn)
+    df_empleo = pl.read_database(query=query_empleo, connection=conn)
     
+    conn.close() # Cerramos conexión
     return df_precios, df_salarios, df_empleo
 
 # LIMPIEZA Y ESTRUCTURACIÓN: Aplicamos la lógica de Big Data y columnas calculadas
@@ -81,14 +86,53 @@ def procesar_informacion(df_precios, df_salarios, df_empleo):
 
     return df_ipc_general, df_relacion_paro
 
-# PENDIENTE-->GENERACIÓN DE DATASETS (CAPA ORO) 
+# GENERACIÓN DE DATASETS (CAPA ORO)
 def generar_informes_csv(df_ipc, df_relacion):
     print(f"{amarillo}3. Exportando datasets a data_output/...{reset}")
+    # Archivos CSV requeridos
+    df_ipc.write_csv(f"{OUTPUT_DIR}/Evolucion_IPC_Nacional.csv")
+    df_relacion.write_csv(f"{OUTPUT_DIR}/Relacion_Paro_Salarios.csv")
     
+    # Ampliación Opcional: Parquet (Formato Big Data)
+    df_ipc.write_parquet(f"{OUTPUT_DIR}/Evolucion_IPC_Nacional.parquet")
 
-# PENDIENTE--> ANÁLISIS VISUAL
+# ANÁLISIS VISUAL
 def crear_visualizaciones(df_ipc, df_relacion):
     print(f"{amarillo}4. Generando gráficos con Plotly...{reset}")
+    
+    # Usamos la columna 'valor_ipc' que definimos en la query AS
+    fig_linea = px.line(
+        df_ipc.to_pandas(), 
+        x="fecha_iso", 
+        y="valor_ipc", 
+        title="Impacto de la Inflación: Evolución del IPC General",
+        labels={"valor_ipc": "Índice (Base 2021)", "fecha_iso": "Mes"}
+    )
+    fig_linea.write_html(f"{VIS_DIR}/graficos_interactivos_ipc.html")
+
+    # Scatter Plot: Correlación entre Paro y Salario (Requisito de análisis de dos variables)
+    fig_scatter = px.scatter(
+        df_relacion.to_pandas(),
+        x="valor_empleo",
+        y="valor_salario",
+        color="sector_cnae",
+        title="Relación entre Tasa de Paro y Salarios Brutos",
+        labels={"valor_empleo": "Tasa de Paro (%)", "valor_salario": "Salario (Euros)"}
+    )
+    fig_scatter.write_html(f"{VIS_DIR}/correlacion_paro_salario.html")
+
+    # Gráfico Facetado: Comparativa de poder adquisitivo por sexo y sector
+    fig_facetado = px.line(
+        df_relacion.to_pandas(),
+        x="fecha_iso",
+        y="ratio_poder_adquisitivo",
+        facet_col="sexo",
+        color="sector_cnae",
+        title="Evolución del Poder Adquisitivo: Comparativa por Sexo y Sector"
+    )
+    fig_facetado.write_html(f"{VIS_DIR}/poder_adquisitivo_facetado.html")
+
+    print(f"\n{turquesa}Gráficos generados correctamente.{reset}")
 
 
 def main():
