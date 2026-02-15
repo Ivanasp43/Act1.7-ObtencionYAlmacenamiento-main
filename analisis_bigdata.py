@@ -2,6 +2,7 @@ import polars as pl
 import plotly.express as px
 import os
 import sqlite3
+import time
 
 # colores
 rojo = '\033[91m'
@@ -86,15 +87,40 @@ def procesar_informacion(df_precios, df_salarios, df_empleo):
 
     return df_ipc_general, df_relacion_paro
 
-# GENERACIÓN DE DATASETS (CAPA ORO)
+# GENERACIÓN DE DATASETS
 def generar_informes_csv(df_ipc, df_relacion):
-    print(f"{amarillo}3. Exportando datasets a data_output/...{reset}")
-    # Archivos CSV requeridos
-    df_ipc.write_csv(f"{OUTPUT_DIR}/Evolucion_IPC_Nacional.csv")
-    df_relacion.write_csv(f"{OUTPUT_DIR}/Relacion_Paro_Salarios.csv")
+    print(f"{amarillo}3. Exportando datasets y comparando formatos...{reset}")
     
-    # Ampliación Opcional: Parquet (Formato Big Data)
+    # 1. Definimos las rutas para poder medirlas luego
+    csv_path = f"{OUTPUT_DIR}/Relacion_Paro_Salarios.csv"
+    parquet_path = f"{OUTPUT_DIR}/Relacion_Paro_Salarios.parquet"
+
+    # 2. Exportamos (Guardamos los archivos)
+    df_relacion.write_csv(csv_path)
+    df_relacion.write_parquet(parquet_path)
+    df_ipc.write_csv(f"{OUTPUT_DIR}/Evolucion_IPC_Nacional.csv")
     df_ipc.write_parquet(f"{OUTPUT_DIR}/Evolucion_IPC_Nacional.parquet")
+
+    # 3. INVESTIGACIÓN: Medimos peso en disco (KB)
+    peso_csv = os.path.getsize(csv_path) / 1024
+    peso_parquet = os.path.getsize(parquet_path) / 1024
+
+    # 4. INVESTIGACIÓN: Medimos velocidad de lectura (segundos)
+    t0_csv = time.time()
+    pl.read_csv(csv_path)
+    tiempo_csv = time.time() - t0_csv
+
+    t0_pq = time.time()
+    pl.read_parquet(parquet_path)
+    tiempo_pq = time.time() - t0_pq
+
+    # 5. MOSTRAMOS RESULTADOS EN CONSOLA
+    print(f"\n{turquesa}📊 COMPARATIVA BIG DATA (CSV vs PARQUET):{reset}")
+    print(f"📁 Peso: CSV {peso_csv:.2f} KB | Parquet {peso_parquet:.2f} KB")
+    print(f"⏱️ Lectura: CSV {tiempo_csv:.4f}s | Parquet {tiempo_pq:.4f}s")
+    
+    ahorro = (1 - (peso_parquet / peso_csv)) * 100
+    print(f"{lima}🚀 Resultado: Parquet ocupa un {ahorro:.1f}% menos.{reset}\n")
 
 # ANÁLISIS VISUAL
 def crear_visualizaciones(df_ipc, df_relacion):
