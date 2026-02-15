@@ -1,0 +1,5 @@
+polars
+connectorx
+plotly
+pandas
+pyarrow
