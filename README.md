@@ -204,39 +204,38 @@ python main.py
 
 # 🚀 Fase 2: Procesamiento Big Data y Análisis Visual
 
-En esta segunda etapa, hemos evolucionado el sistema hacia un entorno de **Big Data**, migrando el procesamiento de datos a **Polars** para ganar eficiencia y generando una capa de visualización interactiva.
+En esta etapa final, el proyecto evoluciona de la recolección masiva al **Análisis Avanzado de Datos (Capa de Oro)**. Se ha implementado un motor de alto rendimiento para cruzar las variables económicas y generar conocimiento accionable.
 
-## 🛠️ Nuevas Tecnologías Implementadas
-* **Polars**: Motor de procesamiento de datos ultra rápido escrito en Rust, utilizado para el manejo de grandes volúmenes de datos mediante ejecución paralela.
-* **Plotly**: Librería para la creación de gráficos interactivos que permiten una exploración dinámica de los indicadores.
-* **ConnectorX**: Motor de alta velocidad para la extracción de datos desde SQLite hacia dataframes de Polars.
+## 🛠️ Tecnologías de Análisis de Alto Rendimiento
+* **Polars (Core Engine)**: Motor de procesamiento de datos extremadamente rápido escrito en Rust. Se utiliza para manejar los más de 200,000 registros de la base de datos de forma eficiente mediante procesamiento multihilo.
+* **Plotly Express**: Librería empleada para la creación de gráficos interactivos que permiten explorar tendencias y correlaciones directamente en archivos HTML.
+* **PyArrow**: Motor de Big Data utilizado para la exportación de archivos en formato Parquet, optimizando el almacenamiento y la velocidad de lectura.
 
-## 📊 Pipeline de Análisis Big Data (`analisis_bigdata2.py`)
+## 📊 Análisis de la "Capa de Oro"
+El script `analisis_bigdata.py` realiza transformaciones críticas para convertir datos en bruto en indicadores de valor:
 
-El nuevo script implementa un flujo avanzado de datos:
+1.  **Cálculo del Poder Adquisitivo**: Se ha creado una métrica personalizada cruzando salarios brutos e inflación (IPC) para medir la capacidad de compra real.
+    $$ratio\_poder\_adquisitivo = \frac{valor\_salario}{valor\_ipc}$$
+2.  **Agregación Sectorial**: Agrupación por sectores CNAE para calcular salarios promedio y ratios de compra medios por actividad económica.
+3.  **Correlación Multi-variable**: Cruce de la tasa de paro (EPA) con niveles salariales y género para detectar desigualdades estructurales.
 
-1.  **Carga Optimizada**: Extracción de las tablas de hechos (`T_precios`, `T_salarios`, `T_empleo`) unificando dimensiones mediante SQL JOINs directos en la carga.
-2.  **Transformación y Limpieza**:
-    * Conversión de tipos de datos y manejo de valores nulos mediante expresiones vectorizadas de Polars.
-    * **Cruce de Indicadores (Joins)**: Unión de la tabla de IPC con la de Salarios para permitir el cálculo de ratios en la misma serie temporal.
-3.  **Columnas Calculadas (Ingeniería de Características)**:
-    * **Ratio de Poder Adquisitivo**: Cálculo del índice $Salario / IPC$ para medir la ganancia o pérdida de valor real de los sueldos.
+## 📈 Interpretación de Resultados Visuales
+El sistema genera automáticamente visualizaciones en la carpeta `visualizaciones/`:
 
-## 📂 Arquitectura de Salida (Capa Oro)
-Los datos procesados se exportan a la carpeta `data_output/` en dos formatos:
-* **CSV**: Para interoperabilidad tradicional.
-* **Parquet**: Formato columnar optimizado para Big Data que reduce el espacio en disco y acelera las lecturas futuras.
-
-## 📈 Visualizaciones e Insights
-Se han generado los siguientes informes interactivos
+* **Evolución del IPC General**: Refleja una tendencia ascendente constante, con una aceleración crítica a partir del año **2021** (Base 100).
+* **Correlación Paro-Salario**: Gráfico de dispersión que muestra la concentración de salarios brutos frente a las variaciones en la tasa de desempleo por sector.
+* **Poder Adquisitivo por Sexo y Sector**: Gráfico facetado que evidencia cómo la inflación impacta de manera desigual según el género y la actividad profesional.
 
 ---
 
-## 🏗️ Tareas Pendientes (Próximos Pasos)
-* **[PENDIENTE]**: **Análisis de Resultados**: Redacción de las conclusiones extraídas tras observar los gráficos generados (ej. ¿Qué sector ha perdido más poder adquisitivo?).
-* **[PENDIENTE]**: **Benchmarking de Rendimiento**: Comparativa opcional de tiempos de ejecución entre los procesos realizados con Polars frente a métodos tradicionales.
+## 📂 Salida de Datos y Formatos de Big Data
+Tras la ejecución del análisis, se generan datasets finales en la carpeta `data_output/`:
+* `Evolucion_IPC_Nacional.csv`: Histórico limpio de precios.
+* `Salarios_por_Sector.csv`: Resumen de remuneraciones por sector CNAE.
+* `Relacion_Paro_Salarios.csv`: Dataset cruzado para análisis de mercado laboral.
+* **Evolucion_IPC_Nacional.parquet**: Exportación en formato de columnas optimizado para entornos de alto rendimiento.
 
-
+---
 
 ## 🤝 Colaboradores
 
