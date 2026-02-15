@@ -215,18 +215,18 @@ PyArrow: Motor de Big Data utilizado para la exportación de archivos en formato
 Para ejecutar el análisis de Big Data desde cero y evitar errores de dependencias o versiones, sigue estos pasos:
 1.Crear y activar el entorno virtual:
 PowerShell
-```bash python -m venv .venv  .\.venv\Scripts\activate ```
+```powershell python -m venv .venv  .\.venv\Scripts\activate ```
 
 Nota: Si PowerShell bloquea el script de activación, ejecuta: Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
 
 2.Instalar el Stack de Big Data:
 PowerShell
- ```bash pip install polars plotly pyarrow pandas numpy ```
+ ```powershell pip install polars plotly pyarrow pandas numpy ```
 
 3.Ejecutar el motor de análisis:
 PowerShell
 
-```bash python analisis_bigdata.py ```
+```powershell python analisis_bigdata.py ```
 
 ## 📊 Análisis de la "Capa de Oro"
 El script analisis_bigdata.py realiza transformaciones críticas para convertir datos en bruto en indicadores de valor:
