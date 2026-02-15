@@ -216,17 +216,25 @@ Para ejecutar el análisis de Big Data desde cero y evitar errores de dependenci
 1.Crear y activar el entorno virtual:
 PowerShell
 
+```powershell
+python -m venv .venv
+.\.venv\Scripts\activate
+```
 
 Nota: Si PowerShell bloquea el script de activación, ejecuta: Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
 
 2.Instalar el Stack de Big Data:
-PowerShell
+
+```powershell
 pip install polars plotly pyarrow pandas numpy
+```
 
 3.Ejecutar el motor de análisis:
-PowerShell
 
-```powershell python analisis_bigdata.py ```
+
+```powershell
+ python analisis_bigdata.py 
+```
 
 ## 📊 Análisis de la "Capa de Oro"
 El script analisis_bigdata.py realiza transformaciones críticas para convertir datos en bruto en indicadores de valor:
