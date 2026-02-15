@@ -2,7 +2,8 @@ import polars as pl
 import plotly.express as px
 import os
 import sqlite3
-import time
+import time 
+import pandas as pd
 
 # colores
 rojo = '\033[91m'
@@ -122,6 +123,44 @@ def generar_informes_csv(df_ipc, df_relacion):
     ahorro = (1 - (peso_parquet / peso_csv)) * 100
     print(f"{lima}🚀 Resultado: Parquet ocupa un {ahorro:.1f}% menos.{reset}\n")
 
+# COMPARACIÓN DE RENDIMIENTO ENTRE POLARS Y PANDAS EN UNA OPERACIÓN COMPLEJA 
+
+def realizar_benchmarking(df_relacion):
+    print(f"{amarillo}5. Realizando Benchmarking: Polars vs Pandas...{reset}")
+    
+    # Convertimos el DataFrame de Polars a Pandas para la comparativa
+    df_pandas = df_relacion.to_pandas()
+    
+    # Operación compleja: Agrupar por sector y sexo, calcular media, max y min del ratio
+    
+    # --- MEDIDOR POLARS ---
+    t0_polars = time.time()
+    # En Polars las operaciones son perezosas o multihilo por defecto
+    res_polars = df_relacion.group_by(["sector_cnae", "sexo"]).agg([
+        pl.col("ratio_poder_adquisitivo").mean().alias("media"),
+        pl.col("ratio_poder_adquisitivo").max().alias("max"),
+        pl.col("ratio_poder_adquisitivo").std().alias("std")
+    ])
+    tiempo_polars = time.time() - t0_polars
+
+    # --- MEDIDOR PANDAS ---
+    t0_pandas = time.time()
+    res_pandas = df_pandas.groupby(["sector_cnae", "sexo"])["ratio_poder_adquisitivo"].agg(
+        ["mean", "max", "std"]
+    )
+    tiempo_pandas = time.time() - t0_pandas
+
+    # --- RESULTADOS ---
+    print(f"\n{turquesa}⏱️ COMPARATIVA DE RENDIMIENTO (Agregación Compleja):{reset}")
+    print(f"⚡ Polars: {tiempo_polars:.6f} segundos")
+    print(f"🐼 Pandas: {tiempo_pandas:.6f} segundos")
+    
+    if tiempo_polars < tiempo_pandas:
+        mejora = (tiempo_pandas / tiempo_polars)
+        print(f"{lima}🚀 Resultado: Polars es {mejora:.1f} veces más rápido que Pandas en esta operación.{reset}\n")
+    else:
+        print(f"{amarillo}Nota: Con datasets pequeños las diferencias son milimétricas.{reset}\n")
+
 # ANÁLISIS VISUAL
 def crear_visualizaciones(df_ipc, df_relacion):
     print(f"{amarillo}4. Generando gráficos con Plotly...{reset}")
@@ -168,6 +207,8 @@ def main():
         
         generar_informes_csv(ipc_oro, relacion_oro)
         crear_visualizaciones(ipc_oro, relacion_oro)
+
+        realizar_benchmarking(relacion_oro)
         
         print(f"{lima}\n¡¡PROCESO COMPLETADO CON ÉXITO!!.{reset}")
     except Exception as e:
