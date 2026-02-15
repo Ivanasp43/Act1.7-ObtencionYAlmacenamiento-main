@@ -235,6 +235,53 @@ pip install polars plotly pyarrow pandas numpy
 ```bash
  python analisis_bigdata.py 
 ```
+## 🚀 Guía de Ejecución (Paso a Paso)
+El flujo de trabajo se divide en tres scripts principales que deben ejecutarse en este orden:
+
+# Paso 1: Extracción y Población de DB (ETL)
+Ejecuta el orquestador que conecta con la API del INE y descarga los datos brutos a la base de datos local.
+
+Bash
+```bash
+python main.py
+```
+Qué hace: Crea proyecto_datos.db, limpia los JSON del INE y organiza las tablas de hechos y dimensiones.
+
+# Paso 2: Motor de Procesamiento y Benchmarking
+Este es el corazón analítico. Procesa los datos de la base de datos usando Polars para generar la "Capa de Oro".
+
+Bash
+```bash
+python analisis_bigdata.py
+```
+Análisis Técnico: Realiza un Benchmarking automático comparando los tiempos de ejecución entre Pandas vs Polars y el peso en disco de CSV vs Parquet.
+
+Resultados: Genera los archivos en data_output/ y los gráficos interactivos en visualizaciones/.
+
+# Paso 3: Lanzamiento del Dashboard Web
+Para visualizar los datos de forma profesional y dinámica, levanta la aplicación web con Streamlit.
+
+Bash
+```bash
+streamlit run dashboard.py
+```
+Interfaz: Se abrirá una pestaña en tu navegador (localhost:8501) donde podrás filtrar los resultados por sector y géne
+
+## ⚙️ Detalles Técnicos de la Implementación1.
+# 1. Procesamiento con Polars
+Hemos sustituido las operaciones tradicionales por el motor de Polars para aprovechar el procesamiento multihilo. Se ha implementado la lógica de negocio para calcular el ratio de poder adquisitivo:
+
+$$ratio\_poder\_adquisitivo = \frac{valor\_salario}{valor\_ipc}$$2.
+
+# 2. Formatos de Big Data (Parquet)
+A diferencia del CSV, el formato Parquet que generamos reduce el uso de memoria y acelera las consultas futuras al ser un formato de almacenamiento por columnas. El script de análisis demuestra que el archivo Parquet es significativamente más ligero que el CSV equivalente.
+
+# 3. Visualizaciones con Plotly
+Se han generado tres tipos de reportes interactivos:
+
+    - Evolución Temporal: Líneas de tiempo para el IPC.
+    - Análisis de Correlación: Scatter plot relacionando Tasa de Paro y Salarios.
+    - Análisis Facetado: Comparativa cruzada de salarios por Sexo y Sector CNAE.
 
 ## 📊 Análisis de la "Capa de Oro"
 El script analisis_bigdata.py realiza transformaciones críticas para convertir datos en bruto en indicadores de valor:
