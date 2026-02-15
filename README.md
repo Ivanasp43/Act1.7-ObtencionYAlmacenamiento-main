@@ -202,43 +202,46 @@ python main.py
 
 ---
 
-🚀 Fase 2: Procesamiento Big Data y Análisis Visual
+## 🚀 Fase 2: Procesamiento Big Data y Análisis Visual
 
 En esta etapa final, el proyecto evoluciona de la recolección masiva al Análisis Avanzado de Datos (Capa de Oro). Se ha implementado un motor de alto rendimiento para cruzar las variables económicas y generar conocimiento accionable.
 
-🛠️ Tecnologías de Análisis de Alto Rendimiento
+## 🛠️ Tecnologías de Análisis de Alto Rendimiento
 Polars (Core Engine): Motor de procesamiento de datos extremadamente rápido escrito en Rust. Se utiliza para manejar los más de 200,000 registros de la base de datos de forma eficiente mediante procesamiento multihilo.
 Plotly Express: Librería empleada para la creación de gráficos interactivos que permiten explorar tendencias y correlaciones directamente en archivos HTML.
 PyArrow: Motor de Big Data utilizado para la exportación de archivos en formato Parquet, optimizando el almacenamiento y la velocidad de lectura.
 
-⚙️ Guía de Configuración e Instalación
+## ⚙️ Guía de Configuración e Instalación
 Para ejecutar el análisis de Big Data desde cero y evitar errores de dependencias o versiones, sigue estos pasos:
 1.Crear y activar el entorno virtual:
 PowerShell
-python -m venv .venv
-.\.venv\Scripts\activate
+```bash python -m venv .venv  .\.venv\Scripts\activate ```
+
 Nota: Si PowerShell bloquea el script de activación, ejecuta: Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
 
 2.Instalar el Stack de Big Data:
 PowerShell
-pip install polars plotly pyarrow pandas numpy
+ ```bash pip install polars plotly pyarrow pandas numpy ```
 
-3.Ejecutar el motor de análisis:PowerShellpython analisis_bigdata.py
+3.Ejecutar el motor de análisis:
+PowerShell
 
-📊 Análisis de la "Capa de Oro"
+```bash python analisis_bigdata.py ```
+
+## 📊 Análisis de la "Capa de Oro"
 El script analisis_bigdata.py realiza transformaciones críticas para convertir datos en bruto en indicadores de valor:
 
    1. Cálculo del Poder Adquisitivo: Se ha creado una métrica personalizada cruzando salarios brutos e inflación (IPC) para medir la capacidad de compra real.$$ratio\_poder\_adquisitivo = \frac{valor\_salario}{valor\_ipc}$$
    2. Agregación Sectorial: Agrupación por sectores CNAE para calcular salarios promedio y ratios de compra medios por actividad económica.
    3. Correlación Multi-variable: Cruce de la tasa de paro (EPA) con niveles salariales y género para detectar desigualdades estructurales.
 
-📈 Interpretación de Resultados Visuales
+## 📈 Interpretación de Resultados Visuales
 El sistema genera automáticamente visualizaciones en la carpeta visualizaciones/:
    - Evolución del IPC General: Refleja una tendencia ascendente constante, con una aceleración crítica a partir del año 2021 (Base 100).
    - Correlación Paro-Salario: Gráfico de dispersión que muestra la concentración de salarios brutos frente a las variaciones en la tasa de desempleo por sector.
    - Poder Adquisitivo por Sexo y Sector: Gráfico facetado que evidencia cómo la inflación impacta de manera desigual según el género y la actividad profesional.
 
-📂 Salida de Datos y Formatos de Big Data
+## 📂 Salida de Datos y Formatos de Big Data
 Tras la ejecución del análisis, se generan datasets finales en la carpeta data_output/:
 
    - Evolucion_IPC_Nacional.csv: Histórico limpio de precios.
@@ -246,7 +249,7 @@ Tras la ejecución del análisis, se generan datasets finales en la carpeta data
    - Relacion_Paro_Salarios.csv: Dataset cruzado para análisis de mercado laboral
    - .Evolucion_IPC_Nacional.parquet: Exportación en formato de columnas optimizado para entornos de alto rendimiento.
 
-🤝 Colaboradores
+## 🤝 Colaboradores
 
 * Alejandro Bernabé Guerrero -> https://github.com/Alebernabe5
 * Ivana Sánchez Pérez -> https://github.com/Ivanasp43
