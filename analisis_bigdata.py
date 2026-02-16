@@ -74,9 +74,6 @@ def procesar_informacion(df_precios, df_salarios, df_empleo):
     df_salarios = df_salarios.filter(pl.col("valor_salario") > 0)
 
     # B) Filtrado para la Capa de Oro 1: IPC General
-    # ... (resto de tu lógica)
-
-    # B) Filtrado para la Capa de Oro 1: IPC General
     df_ipc_general = df_precios.filter(
         (pl.col("categoria_gasto") == "IPC General") & 
         (pl.col("indicador").str.contains("Indice"))
