@@ -256,6 +256,7 @@ Utilizando **Box Plots** con representación de puntos individuales (jitter), se
 Este gráfico facetado permite observar dos fenómenos clave de forma simultánea:
 * **Jerarquía Profesional**: Las ocupaciones de alta cualificación (Directores y Gerentes) mantienen un ratio de poder adquisitivo notablemente superior al resto.
 * **Resiliencia al IPC**: Se observa cómo ciertos sectores han logrado estabilizar su poder adquisitivo tras el impacto inflacionario de 2021, mientras que los sectores menos cualificados muestran una mayor vulnerabilidad.
+* **Segregación Ocupacional**: el gráfico permite visualizar cómo las mujeres tienen una presencia concentrada en ciertos sectores de servicios donde el ratio de poder adquisitivo es más ajustado, mientras que los hombres dominan sectores con "outliers" salariales más altos.
 
 ## 📂 Salida de Datos y Formatos de Big Data
 Tras la ejecución del análisis, se generan datasets finales en la carpeta data_output/:
