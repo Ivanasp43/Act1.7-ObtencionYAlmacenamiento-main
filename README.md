@@ -246,13 +246,13 @@ El script analisis_bigdata.py realiza transformaciones críticas para convertir 
 ## 📈 Interpretación de Resultados Visuales
 El sistema genera visualizaciones interactivas mediante **Plotly** que permiten extraer las siguientes conclusiones de negocio:
 
-### - 1. Evolución Temporal del IPC General[📈 Evolución IPC General](./visualizaciones/1_evolucion_ipc.png).
+### - 1. [📈 Evolución IPC General](./visualizaciones/1_evolucion_ipc.png)
 Refleja una tendencia ascendente constante, con una aceleración crítica a partir del año 2021. Esta curva es fundamental para entender la presión inflacionista sobre los salarios nominales.
 
-### - 2. Distribución Salarial por Comunidad Autónoma[📊 Distribución Salarial por Comunidad](./visualizaciones/2_salario_comunidades.png).
+### - 2. [📊 Distribución Salarial por Comunidad](./visualizaciones/2_salario_comunidades.png)
 Utilizando **Box Plots** con representación de puntos individuales (jitter), se evidencia la brecha regional. Mientras que comunidades como Extremadura muestran una concentración en rangos bajos, **Madrid y País Vasco** presentan una alta dispersión con **outliers** significativos en los niveles salariales más altos.
 
-### - 3. Poder Adquisitivo por Ocupación y Sexo[👥 Poder Adquisitivo por Sexo y Sector](./visualizaciones/3_poder_adquisitivo_evolutivo.png).
+### - 3. [👥 Poder Adquisitivo por Sexo y Sector](./visualizaciones/3_poder_adquisitivo_evolutivo.png)
 Este gráfico facetado permite observar dos fenómenos clave de forma simultánea:
 * **Jerarquía Profesional**: Las ocupaciones de alta cualificación (Directores y Gerentes) mantienen un ratio de poder adquisitivo notablemente superior al resto.
 * **Resiliencia al IPC**: Se observa cómo ciertos sectores han logrado estabilizar su poder adquisitivo tras el impacto inflacionario de 2021, mientras que los sectores menos cualificados muestran una mayor vulnerabilidad.
