@@ -37,10 +37,12 @@ def cargar_datos():
     
     # Query para Salarios
     query_salarios = """
-    SELECT s.valor AS valor_salario, s.sexo, s.sector_cnae, t.fecha_iso, i.nombre as indicador_salario
+    SELECT s.valor AS valor_salario, s.sexo, s.sector_cnae, s.ocupacion_cno11, t.fecha_iso, 
+           i.nombre as indicador_salario, g.nombre as comunidad
     FROM T_salarios s
     JOIN tbl_periodo t ON s.id_periodo = t.id_periodo
     JOIN tbl_indicador i ON s.id_indicador = i.id_indicador
+    JOIN tbl_geografia g ON s.id_geografia = g.id_geografia
     """
 
     # Query para Empleo
@@ -65,11 +67,14 @@ def procesar_informacion(df_precios, df_salarios, df_empleo):
 
     # A) Limpieza: Convertir fechas a objeto Date y quitar nulos
     df_precios = df_precios.with_columns(pl.col("fecha_iso").str.to_date()).drop_nulls()
-    df_salarios = df_salarios.with_columns(pl.col("fecha_iso").str.to_date()).drop_nulls()
+    df_salarios = df_salarios.with_columns([
+        pl.col("fecha_iso").str.to_date(),
+        pl.col("sector_cnae").str.strip_chars() # Limpiamos espacios para evitar N/A falsos
+    ]).drop_nulls()
     df_empleo = df_empleo.with_columns(pl.col("fecha_iso").str.to_date()).drop_nulls()
     
     
-    # NUEVA LIMPIEZA: Filtrar valores negativos o basura antes de calcular
+    # Filtrar valores negativos o basura antes de calcular
     df_precios = df_precios.filter(pl.col("valor_ipc") > 0)
     df_salarios = df_salarios.filter(pl.col("valor_salario") > 0)
 
@@ -167,40 +172,80 @@ def realizar_benchmarking(df_relacion):
         print(f"{amarillo}Nota: Con datasets pequeños las diferencias son milimétricas.{reset}\n")
 
 # ANÁLISIS VISUAL
-def crear_visualizaciones(df_ipc, df_relacion):
-    print(f"{amarillo}4. Generando gráficos con Plotly...{reset}")
+def crear_visualizaciones(df_ipc, df_final):
+    print(f"{amarillo}4. Generando los 3 gráficos analíticos requeridos...{reset}")
+
+    # GRÁFICO 1: Evolución del IPC General (Línea Temporal Interactiva) 
+    df_ipc_plot = df_ipc.sort("fecha_iso").to_pandas()
     
-    # Usamos la columna 'valor_ipc' que definimos en la query AS
-    fig_linea = px.line(
-        df_ipc.to_pandas(), 
+    fig1 = px.line(
+        df_ipc_plot, 
         x="fecha_iso", 
-        y="valor_ipc", 
-        title="Impacto de la Inflación: Evolución del IPC General",
-        labels={"valor_ipc": "Índice (Base 2021)", "fecha_iso": "Año"}
+        y="valor_ipc",
+        title="1. Evolución Temporal del IPC General (Base 2021)",
+        markers=True,
+        labels={"valor_ipc": "Índice IPC", "fecha_iso": "Año"}
     )
-    fig_linea.write_html(f"{VIS_DIR}/graficos_interactivos_ipc.html")
+    fig1.write_html(f"{VIS_DIR}/1_evolucion_ipc.html")
 
-    # Scatter Plot: Correlación entre Paro y Salario (Requisito de análisis de dos variables)
-    fig_scatter = px.scatter(
-        df_relacion.to_pandas(),
-        x="valor_empleo",
-        y="valor_salario",
-        color="sector_cnae",
-        title="Relación entre Tasa de Paro y Salarios Brutos",
-        labels={"valor_empleo": "Tasa de Paro (%)", "valor_salario": "Salario (Euros)"}
-    )
-    fig_scatter.write_html(f"{VIS_DIR}/correlacion_paro_salario.html")
 
-    # Gráfico Facetado: Comparativa de poder adquisitivo por sexo y sector
-    fig_facetado = px.line(
-        df_relacion.to_pandas(),
-        x="fecha_iso",
-        y="ratio_poder_adquisitivo",
-        facet_col="sexo",
-        color="sector_cnae",
-        title="Evolución del Poder Adquisitivo: Comparativa por Sexo y Sector"
+    # Gráfico 2. SALARIO POR COMUNIDAD (Scatter Plot Temporal) 
+    df_sal_com = (
+        df_final.filter(pl.col("comunidad") != "Total Nacional")
+        .group_by(["fecha_iso", "comunidad"])
+        .agg(pl.col("valor_salario").mean())
+        .sort("fecha_iso")
+        .to_pandas()
     )
-    fig_facetado.write_html(f"{VIS_DIR}/poder_adquisitivo_facetado.html")
+    
+    fig2 = px.scatter(
+        df_sal_com, 
+        x="fecha_iso",           # Eje X con los AÑOS
+        y="valor_salario",       # Eje Y con el SUELDO
+        color="comunidad",       # Cada comunidad es un color
+        size="valor_salario",    # El tamaño del punto refuerza visualmente el dato
+        title="2. Evolución del Salario Medio por Comunidad Autónoma",
+        labels={"fecha_iso": "Año", "valor_salario": "Salario Medio (€)"}
+    )
+    # Movemos la leyenda debajo para que no tape el gráfico
+    fig2.update_layout(legend=dict(orientation="h", y=-0.3, x=0.5, xanchor="center"))
+    fig2.write_html(f"{VIS_DIR}/2_salario_comunidades.html")
+
+   # --- 3. PODER ADQUISITIVO: OCUPACIÓN, SEXO Y AÑO (Facetado Evolutivo) ---
+    # Limpiamos los datos para que el gráfico sea legible (quitamos Totales y N/A)
+    df_grafico_3 = df_final.filter(
+        (pl.col("sexo") != "Total") & 
+        (pl.col("sector_cnae") != "Total") & 
+        (pl.col("sector_cnae") != "N/A")
+    ).to_pandas()
+
+    fig3 = px.line(
+        df_grafico_3,
+        x="fecha_iso",                
+        y="ratio_poder_adquisitivo",   
+        color="sector_cnae",           
+        facet_col="sexo",            
+        title="Evolución del Poder Adquisitivo por Ocupación y Sexo",
+        labels={
+            "fecha_iso": "Año", 
+            "ratio_poder_adquisitivo": "Ratio Poder Adquisitivo",
+            "sector_cnae": "Ocupación"
+        }
+    )
+
+    # AJUSTES DE DISEÑO 
+    fig3.update_layout(
+        legend=dict(
+            orientation="h",   # Leyenda en Horizontal
+            yanchor="bottom", 
+            y=-0.6,            # La situamos DEBAJO del gráfico para que no estorbe
+            xanchor="center", 
+            x=0.5
+        ),
+        margin=dict(b=150)     # Damos espacio abajo para que quepa la leyenda
+    )
+
+    fig3.write_html(f"{VIS_DIR}/3_poder_adquisitivo_evolutivo.html")
 
     print(f"\n{turquesa}Gráficos generados correctamente.{reset}")
 
