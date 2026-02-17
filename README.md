@@ -244,10 +244,18 @@ El script analisis_bigdata.py realiza transformaciones críticas para convertir 
    3. Correlación Multi-variable: Cruce de la tasa de paro (EPA) con niveles salariales y género para detectar desigualdades estructurales.
 
 ## 📈 Interpretación de Resultados Visuales
-El sistema genera automáticamente visualizaciones en la carpeta visualizaciones/:
-   - Evolución del IPC General: Refleja una tendencia ascendente constante, con una aceleración crítica a partir del año 2021 (Base 100).
-   - Correlación Paro-Salario: Gráfico de dispersión que muestra la concentración de salarios brutos frente a las variaciones en la tasa de desempleo por sector.
-   - Poder Adquisitivo por Sexo y Sector: Gráfico facetado que evidencia cómo la inflación impacta de manera desigual según el género y la actividad profesional.
+El sistema genera visualizaciones interactivas mediante **Plotly** que permiten extraer las siguientes conclusiones de negocio:
+
+### - 1. Evolución Temporal del IPC General
+Refleja una tendencia ascendente constante, con una aceleración crítica a partir del año 2021. Esta curva es fundamental para entender la presión inflacionista sobre los salarios nominales.
+
+### - 2. Distribución Salarial por Comunidad Autónoma
+Utilizando **Box Plots** con representación de puntos individuales (jitter), se evidencia la brecha regional. Mientras que comunidades como Extremadura muestran una concentración en rangos bajos, **Madrid y País Vasco** presentan una alta dispersión con **outliers** significativos en los niveles salariales más altos.
+
+### - 3. Poder Adquisitivo por Ocupación y Sexo
+Este gráfico facetado permite observar dos fenómenos clave de forma simultánea:
+* **Jerarquía Profesional**: Las ocupaciones de alta cualificación (Directores y Gerentes) mantienen un ratio de poder adquisitivo notablemente superior al resto.
+* **Resiliencia al IPC**: Se observa cómo ciertos sectores han logrado estabilizar su poder adquisitivo tras el impacto inflacionario de 2021, mientras que los sectores menos cualificados muestran una mayor vulnerabilidad.
 
 ## 📂 Salida de Datos y Formatos de Big Data
 Tras la ejecución del análisis, se generan datasets finales en la carpeta data_output/:
