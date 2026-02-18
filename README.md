@@ -237,26 +237,27 @@ pip install polars plotly pyarrow pandas numpy
 ```
 
 ## 📊 Análisis de la "Capa de Oro"
-El script analisis_bigdata.py realiza transformaciones críticas para convertir datos en bruto en indicadores de valor:
+El script `analisis_bigdata.py` realiza transformaciones críticas para convertir datos en bruto en indicadores de valor:
 
-   1. Cálculo del Poder Adquisitivo: Se ha creado una métrica personalizada cruzando salarios brutos e inflación (IPC) para medir la capacidad de compra real.$$ratio\_poder\_adquisitivo = \frac{valor\_salario}{valor\_ipc}$$
-   2. Agregación Sectorial: Agrupación por sectores CNAE para calcular salarios promedio y ratios de compra medios por actividad económica.
-   3. Correlación Multi-variable: Cruce de la tasa de paro (EPA) con niveles salariales y género para detectar desigualdades estructurales.
+1. **Cálculo del Poder Adquisitivo**: Se ha creado una métrica personalizada cruzando salarios brutos e inflación (IPC).
+   $$ratio\_poder\_adquisitivo = \frac{valor\_salario}{valor\_ipc}$$
+2. **Normalización por Medias**: Para garantizar una comparativa justa entre sectores con distintos volúmenes de datos, se aplica la **media aritmética** sobre el ratio de poder adquisitivo y el salario nominal.
+3. **Correlación Multi-variable**: Cruce de la tasa de paro (EPA) con niveles salariales y género para detectar desigualdades estructurales.
 
 ## 📈 Interpretación de Resultados Visuales
-El sistema genera visualizaciones interactivas mediante **Plotly** que permiten extraer las siguientes conclusiones de negocio:
 
-### - 1. [📈 Evolución IPC General](./visualizaciones/1_evolucion_ipc.png)
-Refleja una tendencia ascendente constante, con una aceleración crítica a partir del año 2021. Esta curva es fundamental para entender la presión inflacionista sobre los salarios nominales.
+### 1. [📈 Evolución IPC General](./visualizaciones/1_evolucion_ipc.html)
+Gráfico de línea con marcadores que identifica la aceleración inflacionista desde 2021.
 
-### - 2. [📊 Distribución Salarial por Comunidad](./visualizaciones/2_salario_comunidades.png)
-Utilizando **Box Plots** con representación de puntos individuales (jitter), se evidencia la brecha regional. Mientras que comunidades como Extremadura muestran una concentración en rangos bajos, **Madrid y País Vasco** presentan una alta dispersión con **outliers** significativos en los niveles salariales más altos.
+### 2. [📊 Tendencia del Salario Medio por CCAA](./visualizaciones/2_salario_comunidades.html)
+Representación de la **media salarial anual** por comunidad autónoma. Permite observar que Madrid y País Vasco mantienen un crecimiento sostenido por encima de la media nacional.
 
-### - 3. [👥 Poder Adquisitivo por Sexo y Sector](./visualizaciones/3_poder_adquisitivo_evolutivo.png)
-Este gráfico facetado permite observar dos fenómenos clave de forma simultánea:
-* **Jerarquía Profesional**: Las ocupaciones de alta cualificación (Directores y Gerentes) mantienen un ratio de poder adquisitivo notablemente superior al resto.
-* **Resiliencia al IPC**: Se observa cómo ciertos sectores han logrado estabilizar su poder adquisitivo tras el impacto inflacionario de 2021, mientras que los sectores menos cualificados muestran una mayor vulnerabilidad.
-* **Segregación Ocupacional**: el gráfico permite visualizar cómo las mujeres tienen una presencia concentrada en ciertos sectores de servicios donde el ratio de poder adquisitivo es más ajustado, mientras que los hombres dominan sectores con "outliers" salariales más altos.
+### 3. [👥 Ranking de Poder Adquisitivo Medio por Sector](./visualizaciones/3_poder_adquisitivo_barras.html)
+Este gráfico de barras horizontales representa el **promedio histórico** del periodo seleccionado, permitiendo una interpretación clara de la jerarquía económica:
+* **Estabilidad Estadística**: Al utilizar la **media del poder adquisitivo**, se eliminan fluctuaciones estacionales, ofreciendo una visión robusta de qué sectores son estructuralmente más rentables.
+* **Brecha de Género en Medias**: Se observa que la **media** del ratio en hombres (Morado) es sistemáticamente superior a la de las mujeres (Turquesa) en sectores de alta cualificación.
+* **Liderazgo Directivo**: La media de "Directores y gerentes" destaca como un outlier positivo, consolidando su posición como el sector con mayor capacidad de compra real.
+
 
 ## 📂 Salida de Datos y Formatos de Big Data
 Tras la ejecución del análisis, se generan datasets finales en la carpeta data_output/:
