@@ -252,7 +252,7 @@ Gráfico de línea con marcadores que identifica la aceleración inflacionista d
 ### 2. [📊 Tendencia del Salario Medio por CCAA](./visualizaciones/2_salario_comunidades.png)
 Representación de la **media salarial anual** por comunidad autónoma. Permite observar que Madrid y País Vasco mantienen un crecimiento sostenido por encima de la media nacional.
 
-### 3. [👥 Ranking de Poder Adquisitivo Medio por Sector](./visualizaciones/3_poder_adquisitivo_barras.png)
+### 3. [👥 Ranking de Poder Adquisitivo Medio por Sector](./visualizaciones/3_poder_adquisitivo_evolutivo.png)
 Este gráfico de barras horizontales representa el **promedio histórico** del periodo seleccionado, permitiendo una interpretación clara de la jerarquía económica:
 * **Estabilidad Estadística**: Al utilizar la **media del poder adquisitivo**, se eliminan fluctuaciones estacionales, ofreciendo una visión robusta de qué sectores son estructuralmente más rentables.
 * **Brecha de Género en Medias**: Se observa que la **media** del ratio en hombres (Morado) es sistemáticamente superior a la de las mujeres (Turquesa) en sectores de alta cualificación.
