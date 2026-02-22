@@ -176,7 +176,20 @@ def crear_visualizaciones(df_ipc, df_final):
     print(f"{amarillo}4. Generando los 3 gráficos analíticos sincronizados con el Dashboard...{reset}")
 
     # --- GRÁFICO 1: IPC (Línea) ---
-    df_ipc_plot = df_ipc.sort("fecha_iso").to_pandas()
+    
+    # 1. Pasamos a Pandas para no alterar el DataFrame original de Polars
+    # 2. Convertimos a fecha para poder ordenar cronológicamente (Enero antes que Octubre)
+    # 3. Quitamos duplicados: si hay dos puntos en la misma fecha, nos quedamos con uno
+    df_ipc_plot = df_ipc.to_pandas()
+    df_ipc_plot['fecha_dt'] = pd.to_datetime(df_ipc_plot['fecha_iso'])
+    
+    df_ipc_plot = (
+        df_ipc_plot
+        .sort_values('fecha_dt')
+        .drop_duplicates(subset=['fecha_iso'])
+        .drop(columns=['fecha_dt'])
+    )
+
     fig1 = px.line(
         df_ipc_plot, 
         x="fecha_iso", y="valor_ipc",
