@@ -1,10 +1,5 @@
 # 📈 Análisis de la Evolución del Poder Adquisitivo en España
 
-> [!WARNING]
-> **ATENCIÓN - VERSIÓN DEFINITIVA**: La versión estable, optimizada y lista para su ejecución inmediata se encuentra en la rama **`Version_Definitiva_para_Descargar`**. Por favor, asegúrate de cambiar a esta rama para obtener el software funcional más reciente.
-
----
-
 ## 🎯 Objetivo del Proyecto
 
 El objetivo principal de este proyecto es analizar la evolución del poder adquisitivo de la clase trabajadora en España mediante un sistema automatizado de **Ingeniería de Datos**.
