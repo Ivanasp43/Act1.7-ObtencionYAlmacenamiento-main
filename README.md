@@ -277,6 +277,55 @@ Los ejercicios complementarios se encuentran organizados de la siguiente manera:
     * `3c29d79`: Implementación de Polar VS Pandas.
     * `2070fb1`: Implementación de dashboard.
 
+---
+
+## 🎨 Fase 3: Explotación de Datos y Business Intelligence (Tableau)
+
+En esta etapa final, hemos migrado el análisis desde el procesamiento programático hacia una herramienta de **Business Intelligence (BI)** profesional. El objetivo es permitir que el usuario final interactúe con los datos y extraiga conclusiones de forma visual.
+
+### 🔌 Conexión Híbrida de Datos
+Se ha implementado una arquitectura de datos mixta dentro de Tableau:
+* **Archivos Estáticos (Capa de Oro):** Conexión a los archivos CSV procesados previamente con Polars para el análisis de tendencias.
+* **Modelado de Datos:** Se han relacionado las tablas mediante campos clave como `fecha_iso`, `sexo` y `comunidad`, permitiendo cruces de información entre el IPC y los niveles salariales.
+
+### 📊 Cuadro de Mando Interactivo (Dashboard)
+El dashboard diseñado ofrece una narrativa coherente dividida en los siguientes puntos clave:
+
+1.  **Visión Macroeconómica (KPIs):**
+    * Ubicados en la parte superior, muestran los valores actuales de **IPC, Salario Medio y Tasa de Paro**. Permiten al usuario situarse en el contexto económico actual de un vistazo.
+
+2.  **Distribución Geográfica (Mapa de Calor):**
+    * **Función:** Representa el ranking de salarios por Comunidad Autónoma.
+    * **Insight:** Facilita la identificación visual inmediata de las regiones con mayor y menor nivel retributivo, superando la limitación de las tablas de datos planas.
+
+3.  **Evolución Histórica (Gráfico de Líneas):**
+    * **Métrica:** Índice de precios (IPC) a lo largo del tiempo.
+    * **Importancia:** Crucial para identificar los puntos de inflexión inflacionista y cómo el coste de vida ha escalado de forma lineal frente a la estabilidad de otros indicadores.
+
+4.  **Estructura Sectorial (Gráfico de Barras Agrupadas):**
+    * **Ejes:** Sector CNAE vs Salario Bruto.
+    * **Detalle:** Este gráfico desglosa la remuneración por tipo de actividad, permitiendo comparar, por ejemplo, el sector servicios frente a la industria.
+
+5.  **Proporción de Masa Salarial (Gráfico Circular Flotante):**
+    * **Análisis de Género:** Actúa como una capa de información secundaria que desglosa el porcentaje total de salarios repartido entre hombres (57,36%) y mujeres (42,64%).
+    * **Integración:** Se ha configurado con fondo transparente para que flote sobre el análisis sectorial, permitiendo una comparativa directa entre la ocupación y la retribución por sexo.
+
+### ⚙️ Configuración del Modelo de Datos
+Para que todos estos gráficos funcionen de forma sincronizada, se configuró la tarjeta de **Marcas** y el panel de **Filtros** de la siguiente manera:
+* **Sincronización:** Se establecieron relaciones basadas en `fecha_iso` y `comunidad` para que, al filtrar por una región en el mapa, el resto de gráficos (IPC y Salarios) se actualicen automáticamente.
+* **Cálculos Dinámicos:** Se implementaron cálculos de tabla rápidos para transformar valores absolutos de salario en porcentajes de contribución en el gráfico circular.
+
+### 📸 Resultado Final en Tableau
+![Dashboard Nacional](https://github.com/tu-usuario/tu-repo/blob/main/visualizaciones/image_c07d77.jpg?raw=true)  
+*Vista general del Dashboard interactivo con la integración de todos los indicadores socioeconómicos.*
+*Vista interactiva que combina el análisis temporal, geográfico, sectorial y de género.*
+
+---
+
+## 📂 Entregables
+* **Archivo de Tableau:** `Analisis_Socioeconomico.twbx` (Libro de trabajo empaquetado).
+* **Capa de Datos:** Datasets finales optimizados en formatos **CSV** y **Parquet** para futuras explotaciones en entornos de Big Data.
+
 ## 🤝 Colaboradores
 
 * Alejandro Bernabé Guerrero -> https://github.com/Alebernabe5
