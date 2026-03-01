@@ -279,8 +279,6 @@ Los ejercicios complementarios se encuentran organizados de la siguiente manera:
 
 ---
 
----
-
 ## 🎨 Fase 3: Explotación de Datos y Business Intelligence (Tableau)
 
 En esta etapa final, hemos migrado el análisis desde el procesamiento programático hacia una herramienta de **Business Intelligence (BI)** profesional. El objetivo es permitir que el usuario final interactúe con los datos y extraiga conclusiones de forma visual.
