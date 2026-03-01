@@ -316,7 +316,7 @@ Para que todos estos gráficos funcionen de forma sincronizada, se configuró la
 * **Cálculos Dinámicos:** Se implementaron cálculos de tabla rápidos para transformar valores absolutos de salario en porcentajes de contribución en el gráfico circular.
 
 ### 📸 Resultado Final en Tableau
-![Dashboard Nacional](https://github.com/tu-usuario/tu-repo/blob/main/visualizaciones/image_c07d77.jpg?raw=true)  
+![Dashboard Nacional](visualizaciones/Dashboard_Tableau.png) 
 *Vista general del Dashboard interactivo con la integración de todos los indicadores socioeconómicos.*
 *Vista interactiva que combina el análisis temporal, geográfico, sectorial y de género.*
 
