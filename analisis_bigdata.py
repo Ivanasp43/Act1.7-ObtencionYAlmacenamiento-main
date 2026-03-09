@@ -69,7 +69,7 @@ def procesar_informacion(df_precios, df_salarios, df_empleo):
     df_precios = df_precios.with_columns(pl.col("fecha_iso").str.to_date()).drop_nulls()
     df_salarios = df_salarios.with_columns([
         pl.col("fecha_iso").str.to_date(),
-        pl.col("sector_cnae").str.strip_chars() # Limpiamos espacios para evitar N/A falsos
+        pl.col("sector_cnae").cast(pl.String).str.strip_chars() # Limpiamos espacios para evitar N/A falsos
     ]).drop_nulls()
     df_empleo = df_empleo.with_columns(pl.col("fecha_iso").str.to_date()).drop_nulls()
     
