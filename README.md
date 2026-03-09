@@ -288,7 +288,8 @@ Se ha implementado una arquitectura de datos mixta dentro de Tableau:
 * **Archivos Estáticos (Capa de Oro):** Conexión a los archivos CSV procesados previamente con Polars para el análisis de tendencias.
 * **Modelado de Datos:** Se han relacionado las tablas mediante campos clave como `fecha_iso`, `sexo` y `comunidad`, permitiendo cruces de información entre el IPC y los niveles salariales sobre un volumen de más de 5 millones de registros.
 
-### [ 📊 Cuadro de Mando Interactivo (Dashboard)](./visualizaciones/Dashboard_Tableau.png)
+### 📊 Cuadro de Mando Interactivo (Dashboard)
+![Dashboard de Tableau](./visualizaciones/Dashboard_Tableau.png)
 El dashboard diseñado ofrece una narrativa coherente dividida en los siguientes puntos clave:
 
 1.  **Visión Macroeconómica (KPIs):**
