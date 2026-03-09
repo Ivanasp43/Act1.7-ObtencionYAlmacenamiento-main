@@ -79,9 +79,10 @@ def procesar_informacion(df_precios, df_salarios, df_empleo):
     df_salarios = df_salarios.filter(pl.col("valor_salario") > 0)
 
     # B) Filtrado para la Capa de Oro 1: IPC General
+    # B) Filtrado para la Capa de Oro 1: IPC General (Acepta ambos nombres posibles)
     df_ipc_general = df_precios.filter(
-        (pl.col("categoria_gasto") == "IPC General") & 
-        (pl.col("indicador").str.contains("Indice"))
+        (pl.col("categoria_gasto").is_in(["IPC General", "Índice general"])) & 
+        (pl.col("indicador").str.contains("ndice")) # Quitamos la 'I' inicial por si la tilde da problemas de codificación
     ).sort("fecha_iso")
 
     # C) UNIÓN (Join): Cruzamos salarios con el IPC General por fecha
