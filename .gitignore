@@ -1,13 +1,21 @@
-# Archivos de la base de datos (aunque es pequeño, es buena práctica)
+# --- Base de Datos ---
 *.db
 *.sqlite
 proyecto_datos.db
 
-# Archivos de Python
+# --- Python ---
 __pycache__/
 *.pyc
 .ipynb_checkpoints
+.python-version
 
-# Entornos virtuales
+# --- Entornos virtuales ---
 venv/
 .env
+
+# --- Carpetas Locales / Editor ---
+.vscode/
+data_output/
+
+# --- Otros ---
+.DS_Store (si usas Mac)
