@@ -103,16 +103,14 @@ def generar_informes_csv(df_ipc, df_relacion):
     print(f"{amarillo}3. Exportando datasets y comparando formatos...{reset}")
     
     # 1. Definimos las rutas para poder medirlas luego
-    csv_path = f"{OUTPUT_DIR}/Relacion_Poder_Adquisitivo.csv"
-    parquet_path = f"{OUTPUT_DIR}/Relacion_Poder_Adquisitivo.parquet"
-    ipc_csv = f"{OUTPUT_DIR}/Evolucion_IPC_Nacional.csv"
-    ipc_pq = f"{OUTPUT_DIR}/Evolucion_IPC_Nacional.parquet"
+    csv_path = f"{OUTPUT_DIR}/Relacion_Paro_Salarios.csv"
+    parquet_path = f"{OUTPUT_DIR}/Relacion_Paro_Salarios.parquet"
 
     # 2. Exportamos (Guardamos los archivos)
-    df_relacion.write_csv(csv_path, separator=";")
+    df_relacion.write_csv(csv_path)
     df_relacion.write_parquet(parquet_path)
-    df_ipc.write_csv(ipc_csv, separator=";")
-    df_ipc.write_parquet(ipc_pq)
+    df_ipc.write_csv(f"{OUTPUT_DIR}/Evolucion_IPC_Nacional.csv")
+    df_ipc.write_parquet(f"{OUTPUT_DIR}/Evolucion_IPC_Nacional.parquet")
 
     # 3. INVESTIGACIÓN: Medimos peso en disco (KB)
     peso_csv = os.path.getsize(csv_path) / 1024
@@ -120,7 +118,7 @@ def generar_informes_csv(df_ipc, df_relacion):
 
     # 4. INVESTIGACIÓN: Medimos velocidad de lectura (segundos)
     t0_csv = time.time()
-    pl.read_csv(csv_path, separator=";")
+    pl.read_csv(csv_path)
     tiempo_csv = time.time() - t0_csv
 
     t0_pq = time.time()
@@ -178,7 +176,20 @@ def crear_visualizaciones(df_ipc, df_final):
     print(f"{amarillo}4. Generando los 3 gráficos analíticos sincronizados con el Dashboard...{reset}")
 
     # --- GRÁFICO 1: IPC (Línea) ---
-    df_ipc_plot = df_ipc.sort("fecha_iso").to_pandas()
+    
+    # 1. Pasamos a Pandas para no alterar el DataFrame original de Polars
+    # 2. Convertimos a fecha para poder ordenar cronológicamente (Enero antes que Octubre)
+    # 3. Quitamos duplicados: si hay dos puntos en la misma fecha, nos quedamos con uno
+    df_ipc_plot = df_ipc.to_pandas()
+    df_ipc_plot['fecha_dt'] = pd.to_datetime(df_ipc_plot['fecha_iso'])
+    
+    df_ipc_plot = (
+        df_ipc_plot
+        .sort_values('fecha_dt')
+        .drop_duplicates(subset=['fecha_iso'])
+        .drop(columns=['fecha_dt'])
+    )
+
     fig1 = px.line(
         df_ipc_plot, 
         x="fecha_iso", y="valor_ipc",
