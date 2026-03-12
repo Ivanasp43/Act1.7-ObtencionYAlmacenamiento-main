@@ -324,6 +324,155 @@ Puedes explorar el análisis completo, navegar por los mapas y filtrar por provi
 
 ---
 
+---
+
+## 🧠 Fase 4: Inteligencia Artificial y Modelado Predictivo
+
+En esta última etapa el proyecto evoluciona desde el análisis descriptivo hacia el **modelado predictivo mediante técnicas de Machine Learning**.  
+El objetivo es identificar patrones ocultos en los datos económicos y evaluar qué variables explican mejor la evolución salarial en España.
+
+A partir del dataset consolidado en la base de datos `SQLite`, se ha construido un pipeline de análisis que permite **predecir salarios, analizar correlaciones estructurales y segmentar grupos socioeconómicos**.
+
+---
+
+## 🤖 Modelos de Machine Learning Implementados
+
+Para obtener una visión completa del fenómeno salarial se han utilizado tres enfoques distintos de aprendizaje automático.
+
+### 1. Regresión Lineal Múltiple (Supervisado)
+
+Se aplica un modelo de **regresión lineal múltiple** para estimar la relación entre el salario y diferentes variables explicativas.
+
+Variables utilizadas:
+
+- Año
+- Sexo
+- Sector profesional (CNAE)
+
+Este modelo permite medir **relaciones directas entre variables** y sirve como referencia inicial para evaluar modelos más complejos.
+
+---
+
+### 2. Random Forest Regressor (Ensemble Learning)
+
+Se ha implementado un modelo **Random Forest**, basado en múltiples árboles de decisión.
+
+Este algoritmo es capaz de:
+
+- Captar **relaciones no lineales**
+- Reducir el sobreajuste
+- Calcular la **importancia relativa de cada variable**
+
+Gracias a este modelo se puede identificar **qué factores influyen más en el salario** dentro del dataset.
+
+---
+
+### 3. Clustering K-Means (Aprendizaje No Supervisado)
+
+Además del modelado predictivo se ha aplicado **clustering K-Means** para detectar patrones en la distribución salarial.
+
+Este algoritmo permite:
+
+- Agrupar trabajadores según **niveles salariales similares**
+- Identificar **segmentos socioeconómicos**
+- Analizar cómo evolucionan los grupos salariales a lo largo del tiempo
+
+---
+
+## 🛠️ Ingeniería de Características (Feature Engineering)
+
+Antes de entrenar los modelos fue necesario preparar el dataset mediante varias transformaciones.
+
+### Codificación de Variables Categóricas
+
+Las variables categóricas se transformaron en formato numérico mediante:
+
+- **One-Hot Encoding** para `sector_cnae`
+- **Codificación binaria** para `sexo`
+
+Esto permite que los algoritmos de Machine Learning puedan interpretar correctamente estas variables.
+
+---
+
+### Limpieza y filtrado de datos
+
+Durante el proceso de preparación del dataset se aplicaron varias reglas de calidad:
+
+- Eliminación de registros agregados (`Total`)
+- Eliminación de valores nulos
+- Normalización de formatos temporales
+
+El resultado fue un dataset limpio con aproximadamente **1.642 registros maestros**, adecuado para modelado estadístico.
+
+---
+
+## 📊 Resultados del Modelado Predictivo
+
+![Resultados del Modelado Predictivo](./visualizaciones_modelado/Todos_los_graficos.png)
+
+El script `modelado.py` genera automáticamente una batería de visualizaciones que permiten evaluar el comportamiento de los modelos y la estructura de los datos.
+
+---
+
+## 📈 Interpretación de Resultados
+
+### 1. Capacidad Predictiva del Modelo (R²)
+
+La inclusión de variables estructurales como el **sector profesional** y el **sexo** mejora significativamente la capacidad explicativa del modelo.
+
+El modelo alcanza un valor aproximado de:
+
+**R² ≈ 0.38**
+
+Esto indica que aproximadamente el **38 % de la variabilidad salarial** puede explicarse mediante las variables incluidas en el modelo.
+
+Aunque no es una predicción perfecta, demuestra que existen **factores estructurales identificables que influyen en los salarios**.
+
+---
+
+### 2. Factores Determinantes del Salario
+
+El análisis de **importancia de variables** obtenido mediante Random Forest muestra que los factores más relevantes son:
+
+1. **Sector profesional**
+2. **Sexo**
+3. **Evolución temporal (año)**
+
+Este resultado sugiere que la estructura del mercado laboral tiene un impacto significativo en la remuneración.
+
+---
+
+### 3. Error Medio de Predicción (MAE)
+
+El modelo presenta un **Error Absoluto Medio (MAE)** aproximado de:
+
+**MAE ≈ 5.300 €**
+
+Esto significa que la diferencia media entre el salario real y el predicho es de aproximadamente **5.300 euros**.
+
+Considerando la elevada dispersión salarial existente entre sectores profesionales, este margen resulta razonable para un modelo exploratorio.
+
+---
+
+### 4. Segmentación Socioeconómica mediante Clustering
+
+El algoritmo **K-Means** identifica varios grupos diferenciados dentro del dataset.
+
+Los clusters reflejan **niveles salariales estructuralmente distintos**, lo que sugiere la existencia de escalones salariales dentro del mercado laboral.
+
+Esta segmentación permite observar cómo ciertos grupos permanecen dentro de rangos salariales similares a lo largo del tiempo.
+
+---
+
+## ⚙️ Ejecución del Modelado Predictivo
+
+Para ejecutar el pipeline de Machine Learning desde cero:
+
+### 1. Instalar dependencias
+
+```bash
+pip install scikit-learn statsmodels plotly polars pandas numpy
+
 ## 🤝 Colaboradores
 
 * Alejandro Bernabé Guerrero -> https://github.com/Alebernabe5
