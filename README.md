@@ -436,7 +436,7 @@ El análisis de **importancia de variables** obtenido mediante Random Forest mue
 2. **Sexo**
 3. **Evolución temporal (año)**
 
-Este resultado sugiere que la estructura del mercado laboral tiene un impacto significativo en la remuneración.
+Este resultado sugiere que la estructura del mercado laboral tiene un impacto significativo en la remuneración, además de confirmar la persistencia de la brecha salarial como una variable de alto impacto en la predicción.
 
 ---
 
