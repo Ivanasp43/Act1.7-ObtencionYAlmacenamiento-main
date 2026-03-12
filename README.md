@@ -324,8 +324,6 @@ Puedes explorar el análisis completo, navegar por los mapas y filtrar por provi
 
 ---
 
----
-
 ## 🧠 Fase 4: Inteligencia Artificial y Modelado Predictivo
 
 En esta última etapa el proyecto evoluciona desde el análisis descriptivo hacia el **modelado predictivo mediante técnicas de Machine Learning**.  
@@ -472,6 +470,8 @@ Para ejecutar el pipeline de Machine Learning desde cero:
 
 ```bash
 pip install scikit-learn statsmodels plotly polars pandas numpy
+
+```
 
 ## 🤝 Colaboradores
 
