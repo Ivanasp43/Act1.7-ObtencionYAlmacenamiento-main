@@ -15,7 +15,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.cluster import KMeans
-from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
+from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error, silhouette_score
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 
 DB_PATH = "proyecto_datos.db"
@@ -98,7 +98,7 @@ def random_forest(df):
     X, y, nombres_col = preparar_variables_ia(df)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-    modelo = RandomForestRegressor(n_estimators=50, n_jobs=1, random_state=42)
+    modelo = RandomForestRegressor(n_estimators=200, max_depth=10,min_samples_split=5, random_state=42, n_jobs=-1)
     modelo.fit(X_train, y_train)
     pred = modelo.predict(X_test)
 
@@ -138,7 +138,12 @@ def clustering(df):
     X_scaled = scaler.fit_transform(X)
 
     modelo = KMeans(n_clusters=4, n_init=10, random_state=42)
-    df_pd["cluster"] = modelo.fit_predict(X_scaled)
+    clusters = modelo.fit_predict(X_scaled)
+
+    df_pd["cluster"] = clusters
+
+    score = silhouette_score(X_scaled, clusters)
+    print(f"{magenta}Silhouette Score:{reset}", score)
 
     fig = px.scatter(df_pd, x="anio", y="salario", color="sexo", symbol="cluster", title="Clusters de Salarios")
     fig.write_html(f"{VIS_DIR}/clustering.html")
