@@ -408,6 +408,8 @@ El resultado fue un dataset limpio con aproximadamente **1.642 registros maestro
 ## 📊 Resultados del Modelado Predictivo
 
 ![Salida Terminal Modelado](./visualizaciones_modelado/Resultado_modelado_py.png)
+
+
 ![Resultados del Modelado Predictivo](./visualizaciones_modelado/Todos_los_graficos.png)
 
 El script `modelado.py` genera automáticamente una batería de visualizaciones que permiten evaluar el comportamiento de los modelos y la estructura de los datos.
