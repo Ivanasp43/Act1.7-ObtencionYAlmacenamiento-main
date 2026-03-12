@@ -336,6 +336,7 @@ A partir del dataset consolidado en la base de datos `SQLite`, se ha construido 
 ## 🤖 Modelos de Machine Learning Implementados
 
 Para obtener una visión completa del fenómeno salarial se han utilizado tres enfoques distintos de aprendizaje automático.
+Para mejorar el rendimiento del modelo Random Forest se realizó un ajuste manual de hiperparámetros, aumentando el número de árboles y limitando la profundidad del modelo para evitar sobreajuste.
 
 ### 1. Regresión Lineal Múltiple (Supervisado)
 
@@ -368,6 +369,7 @@ Gracias a este modelo se puede identificar **qué factores influyen más en el s
 ### 3. Clustering K-Means (Aprendizaje No Supervisado)
 
 Además del modelado predictivo se ha aplicado **clustering K-Means** para detectar patrones en la distribución salarial.
+Para evaluar la calidad del agrupamiento se utilizó el índice de Silhouette, que mide la separación entre clusters y la cohesión interna de cada grupo.
 
 Este algoritmo permite:
 
