@@ -335,8 +335,7 @@ A partir del dataset consolidado en la base de datos `SQLite`, se ha construido 
 
 ## 🤖 Modelos de Machine Learning Implementados
 
-Para obtener una visión completa del fenómeno salarial se han utilizado tres enfoques distintos de aprendizaje automático.
-Para mejorar el rendimiento del modelo Random Forest se realizó un ajuste manual de hiperparámetros, aumentando el número de árboles y limitando la profundidad del modelo para evitar sobreajuste.
+Para obtener una visión completa del fenómeno salarial se han utilizado tres enfoques distintos de aprendizaje automático. Para optimizar el rendimiento, se realizó un ajuste de hiperparámetros en el modelo Random Forest (aumentando a 200 árboles y controlando la profundidad) para evitar el sobreajuste.
 
 ### 1. Regresión Lineal Múltiple (Supervisado)
 
@@ -408,6 +407,7 @@ El resultado fue un dataset limpio con aproximadamente **1.642 registros maestro
 
 ## 📊 Resultados del Modelado Predictivo
 
+![Salida Terminal Modelado](./visualizaciones_modelado/Resultado_modelado_py.png)
 ![Resultados del Modelado Predictivo](./visualizaciones_modelado/Todos_los_graficos.png)
 
 El script `modelado.py` genera automáticamente una batería de visualizaciones que permiten evaluar el comportamiento de los modelos y la estructura de los datos.
@@ -420,13 +420,12 @@ El script `modelado.py` genera automáticamente una batería de visualizaciones 
 
 La inclusión de variables estructurales como el **sector profesional** y el **sexo** mejora significativamente la capacidad explicativa del modelo.
 
-El modelo alcanza un valor aproximado de:
+El modelo alcanza valores de:
 
-**R² ≈ 0.38**
+**R² ≈ 0.93 (Regresión Lineal)
+**R² ≈ 0.97 (Random Forest)
 
-Esto indica que aproximadamente el **38 % de la variabilidad salarial** puede explicarse mediante las variables incluidas en el modelo.
-
-Aunque no es una predicción perfecta, demuestra que existen **factores estructurales identificables que influyen en los salarios**.
+Esto indica que aproximadamente el 93% de la variabilidad salarial puede explicarse mediante las variables incluidas. Es un modelo de alta fidelidad que demuestra que el salario es altamente predecible según el sector y el género..
 
 ---
 
@@ -446,21 +445,15 @@ Este resultado sugiere que la estructura del mercado laboral tiene un impacto si
 
 El modelo presenta un **Error Absoluto Medio (MAE)** aproximado de:
 
-**MAE ≈ 5.300 €**
+**MAE ≈ 776,19 €**
 
-Esto significa que la diferencia media entre el salario real y el predicho es de aproximadamente **5.300 euros**.
-
-Considerando la elevada dispersión salarial existente entre sectores profesionales, este margen resulta razonable para un modelo exploratorio.
+Esto significa que la diferencia media entre el salario real y el predicho es mínima. Considerando la diversidad de sueldos en el dataset, este margen permite realizar estimaciones salariales sumamente fiables.
 
 ---
 
-### 4. Segmentación Socioeconómica mediante Clustering
+### 4. Calidad del Clustering (Silhouette Score)
 
-El algoritmo **K-Means** identifica varios grupos diferenciados dentro del dataset.
-
-Los clusters reflejan **niveles salariales estructuralmente distintos**, lo que sugiere la existencia de escalones salariales dentro del mercado laboral.
-
-Esta segmentación permite observar cómo ciertos grupos permanecen dentro de rangos salariales similares a lo largo del tiempo.
+Se obtuvo un **Silhouette Score de 0.596**. Este valor confirma que los grupos salariales identificados están bien definidos y separados, validando la existencia de "escalones" salariales rígidos dentro del mercado laboral que el modelo ha sabido captar.
 
 ---
 
