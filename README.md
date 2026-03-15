@@ -427,7 +427,8 @@ El modelo alcanza valores de:
 **R² ≈ 0.93 (Regresión Lineal)
 **R² ≈ 0.97 (Random Forest)
 
-Esto indica que aproximadamente el 93% de la variabilidad salarial puede explicarse mediante las variables incluidas. Es un modelo de alta fidelidad que demuestra que el salario es altamente predecible según el sector y el género..
+Esto indica que aproximadamente entre el 93% y el 97% de la variabilidad salarial puede explicarse mediante las variables incluidas en el modelo.  
+Podemos decir que se trata de un modelo de alta fidelidad que demuestra que el salario es altamente predecible según el sector y el género.
 
 ---
 
