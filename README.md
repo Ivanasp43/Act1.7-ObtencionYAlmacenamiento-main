@@ -486,7 +486,7 @@ Se han integrado visualizaciones dinámicas utilizando la librería **Plotly Exp
 * **Análisis de Brecha de Género:** Visualización comparativa que expone las desigualdades retributivas por tipo de actividad CNAE.
 * **Tabla Interactiva:** En la pestaña "Capa de Oro", el usuario puede explorar los registros maestros utilizados para el entrenamiento del modelo.
 
-> ![Dashboard Visual](./visualizaciones/Rdashboard.png)
+> ![Dashboard Visual](./visualizaciones/dashboard.png)
 > *Vista general del Análisis Visual y KPIs del proyecto.*
 
 ### 🤖 Implementación del Modelo Predictivo
