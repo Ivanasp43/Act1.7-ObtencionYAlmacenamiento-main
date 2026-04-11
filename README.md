@@ -470,6 +470,41 @@ Para ejecutar el pipeline de Machine Learning desde cero:
 pip install scikit-learn statsmodels plotly polars pandas numpy
 
 ```
+## 🎨 Fase 5: Implementación del Dashboard Interactivo y UX (Streamlit)
+
+En esta fase final, se ha consolidado todo el ecosistema de datos en una aplicación web interactiva diseñada para la toma de decisiones y la exploración de predicciones salariales mediante herramientas de Business Intelligence y Machine Learning.
+
+### 🏗️ Estructura y Maquetación
+Se ha diseñado una interfaz de **alto contraste (Dark Mode)** con una disposición modular para facilitar la navegación. El panel se organiza mediante una **Barra Lateral de Control** para filtros globales (Comunidad Autónoma) y un sistema de **Pestañas (Tabs)** para separar las diferentes áreas de análisis:
+* **Análisis Visual:** Gráficos de tendencias estructurales.
+* **Simulador IA:** Interfaz de entrada para el modelo predictivo.
+* **Capa de Oro:** Acceso directo al dataset final y exportación.
+
+### 📊 Integración de Datos y Gráficos
+Se han integrado visualizaciones dinámicas utilizando la librería **Plotly Express**, sincronizadas con el motor de alto rendimiento **Polars** para garantizar una respuesta instantánea.
+* **Sueldo Medio por Sector:** Gráfico de barras horizontales que permite identificar rápidamente los sectores más lucrativos del mercado laboral.
+* **Análisis de Brecha de Género:** Visualización comparativa que expone las desigualdades retributivas por tipo de actividad CNAE.
+* **Tabla Interactiva:** En la pestaña "Capa de Oro", el usuario puede explorar los registros maestros utilizados para el entrenamiento del modelo.
+
+> ![Dashboard Visual](./visualizaciones/Rdashboard.png)
+> *Vista general del Análisis Visual y KPIs del proyecto.*
+
+### 🤖 Implementación del Modelo Predictivo
+Se ha desplegado el modelo **Random Forest Regressor** ($R^2 \approx 0.97$) mediante un simulador en tiempo real integrado en la interfaz.
+* **Input de Usuario:** El panel permite introducir variables categóricas: Sector Profesional, Género y Comunidad Autónoma.
+* **Predicción Instantánea:** El sistema procesa la entrada a través del pipeline de ML y devuelve una estimación salarial bruta anual con una alta fidelidad estadística.
+
+> ![Simulador IA](./visualizaciones/simulador.png)
+> *Interfaz del simulador predictivo basado en Machine Learning.*
+
+### 💎 Refinamiento de la UX (Experiencia de Usuario)
+Para dotar al proyecto de un acabado profesional y coherente con el análisis de Big Data, se han aplicado las siguientes mejoras:
+* **Identidad Visual:** Uso de logotipos y tipografías neón (Fucsia/Turquesa) para una estética moderna y tecnológica.
+* **Métricas Clave (KPIs):** Visualización superior de indicadores críticos como Salario Medio, Tamaño de la Muestra y métricas de calidad del modelo ($R^2$ y Silhouette).
+* **Estilo Gemelo:** Unificación visual de componentes (botones de predicción y descarga) para una interfaz equilibrada y legible.
+* **Optimización de Gráficos:** Ajuste de márgenes y eliminación de ruido visual (ModeBar) para maximizar la legibilidad de las etiquetas CNAE.ç
+  
+```
 
 ## 🤝 Colaboradores
 
