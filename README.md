@@ -502,9 +502,7 @@ Para dotar al proyecto de un acabado profesional y coherente con el análisis de
 * **Identidad Visual:** Uso de logotipos y tipografías neón (Fucsia/Turquesa) para una estética moderna y tecnológica.
 * **Métricas Clave (KPIs):** Visualización superior de indicadores críticos como Salario Medio, Tamaño de la Muestra y métricas de calidad del modelo ($R^2$ y Silhouette).
 * **Estilo Gemelo:** Unificación visual de componentes (botones de predicción y descarga) para una interfaz equilibrada y legible.
-* **Optimización de Gráficos:** Ajuste de márgenes y eliminación de ruido visual (ModeBar) para maximizar la legibilidad de las etiquetas CNAE.ç
-  
-```
+* **Optimización de Gráficos:** Ajuste de márgenes y eliminación de ruido visual (ModeBar) para maximizar la legibilidad de las etiquetas CNAE.
 
 ## 🤝 Colaboradores
 
